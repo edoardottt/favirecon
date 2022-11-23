@@ -49,12 +49,27 @@ Get Started 🎉
 ```console
 Usage:
   favirecon [flags]
+
+Flags:
+INPUT:
+   -u, -url string   Input domain
+   -l, -list string  File containing input domains
+
+CONFIGURATIONS:
+   -hash string[]        Filter results having these favicon hashes (comma separated)
+   -c, -concurrency int  Concurrency level (default 100)
+   -t, -timeout int      Connection timeout in seconds (default 10)
+
+OUTPUT:
+   -o, -output string  File to write output results
+   -v, -verbose        Verbose output
+   -s, -silent         Silent output. Print only results
 ```
 
 Examples :bulb:
 ----------
 
-Grab all possible results from single domain
+Identify a single domain
 ```bash
 favirecon -u https://www.github.com
 ```
@@ -68,9 +83,9 @@ favirecon -l targets.txt
 echo targets.txt | favirecon
 ```
 
-Grab all possible results belonging to a specific target(s) from a list of domains (protocols needed!)
+Grab all possible results belonging to a specific target(s) (protocols needed!)
 ```bash
-echo targets.txt | favirecon -d google.com
+echo targets.txt | favirecon -hash 708578229
 ```
 
 Changelog 📌
