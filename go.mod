@@ -3,11 +3,22 @@ module github.com/edoardottt/favirecon
 go 1.18
 
 require (
-	github.com/projectdiscovery/goflags v0.1.5
-	github.com/projectdiscovery/gologger v1.1.5
+	github.com/edoardottt/golazy v0.1.3-dev
+	github.com/projectdiscovery/goflags v0.1.6
+	github.com/projectdiscovery/gologger v1.1.7
+	github.com/projectdiscovery/utils v0.0.5
 )
 
-require github.com/edoardottt/golazy v0.1.3-dev
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/miekg/dns v1.1.50 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/rogpeppe/go-internal v1.9.0 // indirect
+	golang.org/x/exp v0.0.0-20221019170559-20944726eadf // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
+	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/tools v0.1.12 // indirect
+)
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
@@ -25,8 +36,8 @@ require (
 	github.com/nwaples/rardecode v1.1.3 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/projectdiscovery/utils v0.0.3
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
+	github.com/stretchr/testify v1.8.1
 	github.com/twmb/murmur3 v1.1.6
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
