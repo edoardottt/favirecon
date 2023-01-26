@@ -1,5 +1,6 @@
 .vscode/
 scripts/db.go
+/favirecon
 
 # Binaries for programs and plugins
 *.exe
