@@ -9,7 +9,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"regexp"
+	"strings"
 	"time"
 
 	"github.com/twmb/murmur3"
@@ -19,6 +19,16 @@ const (
 	TLSHandshakeTimeout = 10
 	KeepAlive           = 30
 )
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+
+	return false
+}
 
 func getFavicon(url, ua string, client *http.Client) (string, error) {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -40,20 +50,24 @@ func getFavicon(url, ua string, client *http.Client) (string, error) {
 		return "", err
 	}
 
-	return getFaviconHash(body), nil
+	return GetFaviconHash(body), nil
 }
 
 func prepareURL(input string) (string, error) {
+	if !strings.Contains(input, "://") {
+		input = "http://" + input
+	}
+
 	u, err := url.Parse(input)
 	if err != nil {
 		return "", err
 	}
 
-	if u.Scheme == "" {
-		u.Scheme = "http"
+	if len(u.Path) == 0 || u.Path[len(u.Path)-1:] != "/" {
+		u.Path += "/"
 	}
 
-	return u.Scheme + "://" + u.Host + "/", nil
+	return u.Scheme + "://" + u.Host + u.Path, nil
 }
 
 // base64Content : RFC2045.
@@ -75,7 +89,7 @@ func base64Content(input []byte) []byte {
 	return buffer.Bytes()
 }
 
-func getFaviconHash(input []byte) string {
+func GetFaviconHash(input []byte) string {
 	b64 := base64Content(input)
 	return fmt.Sprint(int32(murmur3.Sum32(b64)))
 }
@@ -97,10 +111,4 @@ func customClient(timeout int) *http.Client {
 	}
 
 	return &client
-}
-
-func CompileRegex(regex string) *regexp.Regexp {
-	r, _ := regexp.Compile(regex)
-
-	return r
 }
