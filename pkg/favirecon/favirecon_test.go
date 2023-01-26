@@ -1,9 +1,3 @@
-/*
-csprecon - Discover new target domains using Content Security Policy
-
-This repository is under MIT License https://github.com/edoardottt/csprecon/blob/main/LICENSE
-*/
-
 package favirecon_test
 
 import (
