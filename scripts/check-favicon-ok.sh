@@ -1,0 +1,1 @@
+cat test.in | httpx -path "/favicon.ico" -status-code -fr -mc 200 -o favicon.out
