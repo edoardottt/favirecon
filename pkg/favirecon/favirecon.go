@@ -27,9 +27,17 @@ type Runner struct {
 	InWg      *sync.WaitGroup
 	OutWg     *sync.WaitGroup
 	Options   input.Options
+	OutMutex  *sync.Mutex
 }
 
 func New(options *input.Options) Runner {
+	if options.FileOutput != "" {
+		_, err := os.Create(options.FileOutput)
+		if err != nil {
+			gologger.Error().Msgf("%s", err)
+		}
+	}
+
 	return Runner{
 		Input:     make(chan string, options.Concurrency),
 		Output:    make(chan output.Found, options.Concurrency),
@@ -38,6 +46,7 @@ func New(options *input.Options) Runner {
 		InWg:      &sync.WaitGroup{},
 		OutWg:     &sync.WaitGroup{},
 		Options:   *options,
+		OutMutex:  &sync.Mutex{},
 	}
 }
 
@@ -130,12 +139,12 @@ func pullOutput(r *Runner) {
 		if !r.Result.Printed(o.URL) {
 			r.OutWg.Add(1)
 
-			go writeOutput(r.OutWg, &r.Options, o)
+			go writeOutput(r.OutWg, r.OutMutex, &r.Options, o)
 		}
 	}
 }
 
-func writeOutput(wg *sync.WaitGroup, options *input.Options, o output.Found) {
+func writeOutput(wg *sync.WaitGroup, m *sync.Mutex, options *input.Options, o output.Found) {
 	defer wg.Done()
 
 	if options.FileOutput != "" && options.Output == nil {
@@ -147,6 +156,8 @@ func writeOutput(wg *sync.WaitGroup, options *input.Options, o output.Found) {
 		options.Output = file
 	}
 
+	m.Lock()
+
 	out := o.Format()
 
 	if options.Output != nil {
@@ -154,6 +165,8 @@ func writeOutput(wg *sync.WaitGroup, options *input.Options, o output.Found) {
 			gologger.Fatal().Msg(err.Error())
 		}
 	}
+
+	m.Unlock()
 
 	fmt.Println(out)
 }
