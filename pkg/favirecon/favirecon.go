@@ -1,3 +1,9 @@
+/*
+favirecon - Use favicon.ico to improve your target recon phase. Quickly detect technologies, WAF, exposed panels, known services.
+
+This repository is under MIT License https://github.com/edoardottt/favirecon/blob/main/LICENSE
+*/
+
 package favirecon
 
 import (
@@ -104,7 +110,7 @@ func execute(r *Runner) {
 					return
 				}
 
-				found, err := CheckFavicon(result, targetURL)
+				found, err := CheckFavicon(result, r.Options.Hash, targetURL)
 				if err != nil {
 					if r.Options.Verbose {
 						gologger.Error().Msgf("%s", err)

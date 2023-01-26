@@ -1,3 +1,9 @@
+/*
+favirecon - Use favicon.ico to improve your target recon phase. Quickly detect technologies, WAF, exposed panels, known services.
+
+This repository is under MIT License https://github.com/edoardottt/favirecon/blob/main/LICENSE
+*/
+
 package favirecon
 
 import (
