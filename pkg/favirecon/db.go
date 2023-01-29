@@ -1,8 +1,16 @@
+/*
+favirecon - Use favicon.ico to improve your target recon phase. Quickly detect technologies, WAF, exposed panels, known services.
+
+This repository is under MIT License https://github.com/edoardottt/favirecon/blob/main/LICENSE
+*/
+
 package favirecon
 
 import (
 	"errors"
 	"fmt"
+
+	"github.com/projectdiscovery/goflags"
 )
 
 //nolint: gochecknoglobals
@@ -28,6 +36,7 @@ var (
 		"-106646451":  "WISPR (Airlan)",
 		"-1067420240": "GraphQL",
 		"1081719753":  "D-Link (Network)",
+		"-1085284672": "Wordpress",
 		"-1093172228": "truVision (NVR)",
 		"1095915848":  "Airwatch",
 		"-10974981":   "Shinobi (CCTV)",
@@ -36,9 +45,11 @@ var (
 		"1118684072":  "Baidu",
 		"-1119613926": "Bluehost",
 		"-1124868062": "Netport Software (DSL)",
+		"1126835021":  "InstaCart",
 		"1135165421":  "Ricoh",
 		"1139788073":  "Metasploit",
 		"1142227528":  "Aruba (Virtual Controller)",
+		"1143877728":  "Dremio",
 		"1144925962":  "Dlink Webcam",
 		"-1148190371": "OPNsense",
 		"-1151675028": "ISP Manager (Web Hosting Panel)",
@@ -66,6 +77,7 @@ var (
 		"1235070469":  "Synology VPN Plus",
 		"-1235192469": "Metasploit",
 		"123821839":   "Sangfor",
+		"-1238837624": "Liquid Pixels",
 		"-1240222446": "Zhejiang Uniview Technologies Co.",
 		"1241049726":  "iomega NAS",
 		"1244636413":  "cPanel Login",
@@ -74,7 +86,7 @@ var (
 		"-1249852061": "Microsoft Outlook",
 		"1251810433":  "Cafe24 (Korea)",
 		"-1252041730": "Vue.js",
-		"-1255347784": "AnglularJS",
+		"-1255347784": "AngularJS",
 		"-1255992602": "VMware Horizon",
 		"1262005940":  "Jamf Pro Login",
 		"-1267819858": "KeyHelp (Keyweb AG)",
@@ -150,6 +162,7 @@ var (
 		"-1546574541": "Sonatype Nexus Repository Manager",
 		"-1547576879": "Saia Burgess Controls - PCD",
 		"1552860581":  "Elastic (Database)",
+		"-1561873722": "Nginx",
 		"156312019":   "Technicolor / Thomson Speedtouch (Network / ADSL)",
 		"-1571472432": "Sierra Wireless Ace Manager (Airlink)",
 		"-1581907337": "Atlassian - JIRA",
@@ -160,6 +173,7 @@ var (
 		"-1593651747": "Blackboard",
 		"1594377337":  "Technicolor",
 		"1601194732":  "Sophos Cyberoam (appliance)",
+		"-160425702":  "Medallia",
 		"-1607644090": "Bitnami",
 		"1611729805":  "Elastic (Database)",
 		"-1612496354": "Teltonika",
@@ -180,6 +194,7 @@ var (
 		"-166151761":  "Abilis (Network/Automation)",
 		"-1666561833": "Wildfly",
 		"1668183286":  "Kibana",
+		"1673203892":  "Oracle",
 		"-167656799":  "Drupal",
 		"-1677255344": "UBNT Router UI",
 		"1678170702":  "Asustor",
@@ -207,6 +222,7 @@ var (
 		"1786752597":  "wdCP cloud host management system",
 		"-178685903":  "Yasni",
 		"-1788112745": "PowerMTA monitoring",
+		"1802374283":  "LiquidPixels",
 		"-1807411396": "Skype",
 		"-1810847295": "Sangfor",
 		"-1814887000": "Docker",
@@ -227,6 +243,7 @@ var (
 		"-1897829998": "D-Link (camera)",
 		"1911253822":  "UPC Ceska Republica (Network)",
 		"1913538826":  "Material Dashboard",
+		"1914658187":  "CloudFlare",
 		"191654058":   "Wordpress Under Construction Icon",
 		"1922032523":  "NEC WebPro",
 		"-1922044295": "Mitel Networks (MiCollab End User Portal)",
@@ -285,6 +302,7 @@ var (
 		"-2145085239": "Tenda Web Master",
 		"2146763496":  "Mailcow",
 		"-219752612":  "FRITZ!Box",
+		"-222497010":  "JoyRun",
 		"224536051":   "Shenzhen coship electronics co.",
 		"225632504":   "Rocket Chat",
 		"-235701012":  "Cnservers LLC",
@@ -292,6 +310,7 @@ var (
 		"240606739":   "FireEye",
 		"246145559":   "Parse",
 		"251106693":   "GPON Home Gateway",
+		"-254193850":  "React",
 		"252728887":   "DD WRT (DD-WRT milli_httpd)",
 		"255892555":   "wdCP cloud host management system",
 		"-256828986":  "iDirect Canada (Network Management)",
@@ -299,6 +318,7 @@ var (
 		"-267431135":  "Kibana",
 		"-271448102":  "iKuai Networks",
 		"-276759139":  "Chef Automate",
+		"-277464596":  "AEM Screens",
 		"281559989":   "Huawei",
 		"283740897":   "Intelbras SA",
 		"-297069493":  "Apache Tomcat",
@@ -371,6 +391,7 @@ var (
 		"538585915":   "Lenel",
 		"541087742":   "LiquidFiles",
 		"545827989":   "MobileIron",
+		"547025948":   "Grafana",
 		"5471989":     "Netcom Technology",
 		"547282364":   "Keenetic",
 		"547474373":   "TOTOLINK (network)",
@@ -379,6 +400,7 @@ var (
 		"552727997":   "Atlassian - JIRA",
 		"5542029":     "NetComWireless (Network)",
 		"-560297467":  "DVR (Korean)",
+		"586998417":   "Nginx",
 		"-569941107":  "Fireware Watchguard",
 		"575613323":   "Canvas LMS (Learning Management)",
 		"579239725":   "Metasploit",
@@ -392,6 +414,7 @@ var (
 		"-609520537":  "OpenGeo Suite",
 		"-613216179":  "iomega NAS",
 		"-617743584":  "Odoo",
+		"-624805968":  "Cloudinary",
 		"-625364318":  "OkoFEN Pellematic",
 		"628535358":   "Atlassian",
 		"-629047854":  "Jetty 404",
@@ -434,6 +457,7 @@ var (
 		"75230260":    "Kibana",
 		"-759108386":  "Tongda",
 		"-759754862":  "Kibana",
+		"76658403":    "TheTradeDesk",
 		"-766957661":  "MDaemon Webmail",
 		"768231242":   "JAWS Web Server (IP Camera)",
 		"768816037":   "UniFi Video Controller (airVision)",
@@ -441,6 +465,7 @@ var (
 		"-771764544":  "Parallels Plesk Panel",
 		"774252049":   "FastPanel Hosting",
 		"784872924":   "Lucee!",
+		"786476039":   "AppsFlyer",
 		"786533217":   "OpenStack",
 		"788771792":   "Airwatch",
 		"794809961":   "CheckPoint",
@@ -470,6 +495,7 @@ var (
 		"903086190":   "Honeywell",
 		"904434662":   "Loxone (Automation)",
 		"905744673":   "HP Printer / Server",
+		"905796143":   "Medallia",
 		"90680708":    "Domoticz (Home Automation)",
 		"916642917":   "Multilaser",
 		"917966895":   "Gogs",
@@ -484,6 +510,7 @@ var (
 		"945408572":   "Fortinet - Forticlient",
 		"95271369":    "FireEye",
 		"-956471263":  "Web Client Pro",
+		"966563415":   "WordPress Org",
 		"967636089":   "MobileIron",
 		"970132176":   "3CX Phone System",
 		"-972810761":  "HostMonster - Web hosting",
@@ -503,11 +530,20 @@ var (
 		"998138196":   "iomega NAS",
 	}
 
-	ErrHashNotFound = errors.New("hash not found")
+	ErrHashNotFound    = errors.New("hash not found")
+	ErrHashNotMatching = errors.New("hash not matching hash provided")
 )
 
-func CheckFavicon(hash string, url ...string) (string, error) {
-	if k, ok := db[hash]; ok {
+func CheckFavicon(faviconHash string, hash goflags.StringSlice, url ...string) (string, error) {
+	if k, ok := db[faviconHash]; ok {
+		if len(hash) != 0 {
+			if contains(hash, faviconHash) {
+				return k, nil
+			}
+
+			return "", fmt.Errorf("[%s] %s %w", faviconHash, url, ErrHashNotMatching)
+		}
+
 		return k, nil
 	}
 
@@ -515,5 +551,5 @@ func CheckFavicon(hash string, url ...string) (string, error) {
 		return "", fmt.Errorf("%w", ErrHashNotFound)
 	}
 
-	return "", fmt.Errorf("[%s] [%s] %w", hash, url, ErrHashNotFound)
+	return "", fmt.Errorf("[%s] %s %w", faviconHash, url, ErrHashNotFound)
 }
