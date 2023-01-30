@@ -400,6 +400,7 @@ var (
 		"552727997":   "Atlassian - JIRA",
 		"5542029":     "NetComWireless (Network)",
 		"-560297467":  "DVR (Korean)",
+		"56079838":    "Okta",
 		"586998417":   "Nginx",
 		"-569941107":  "Fireware Watchguard",
 		"575613323":   "Canvas LMS (Learning Management)",
