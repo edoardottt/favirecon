@@ -37,7 +37,7 @@
 </p>
   
 > **Note**
-> This tool relies heavily on its favicon hash database. If you think you have a new favicon hash that's worth adding or you think there is a wrong hash-service association please open an issue.  
+> This tool heavily relies on its favicon hash database. If you think you have a new favicon hash that's worth adding or you think there is a wrong hash-service association please open an issue.  
 
 Install 📡
 ----------
