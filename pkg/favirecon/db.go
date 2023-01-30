@@ -439,6 +439,7 @@ var (
 		"-689902428":  "iomega NAS",
 		"-692947551":  "Ruijie Networks (Login)",
 		"-693082538":  "openmediavault (NAS)",
+		"-696586294":  "LinkedIn",
 		"693122507":   "WordPress",
 		"-697231354":  "Ubiquiti - AirOS",
 		"-702384832":  "TCN",
