@@ -491,6 +491,7 @@ var (
 		"-895890586":  "PLEX Server",
 		"-895963602":  "Jupyter Notebook",
 		"896412703":   "IW",
+		"899457975":   "Cisco",
 		"90066852":    "JAWS Web Server (IP Camera)",
 		"902521196":   "Netflix",
 		"903086190":   "Honeywell",
