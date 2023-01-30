@@ -501,6 +501,7 @@ var (
 		"90680708":    "Domoticz (Home Automation)",
 		"916642917":   "Multilaser",
 		"917966895":   "Gogs",
+		"920338972":   "Linode",
 		"-923088984":  "OpenStack",
 		"-923693877":  "motionEye (camera)",
 		"926501571":   "Handle Proxy",
