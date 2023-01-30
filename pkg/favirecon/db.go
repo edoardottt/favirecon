@@ -154,6 +154,7 @@ var (
 		"-1507567067": "Baidu (IP error page)",
 		"-1528414776": "Rumpus",
 		"1537743656":  "DropBox",
+		"1540037626":  "VKontakte",
 		"1544230796":  "cPanel Login",
 		"-1544605732": "Amazon",
 		"-1546574541": "Sonatype Nexus Repository Manager",
