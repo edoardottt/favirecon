@@ -522,6 +522,7 @@ var (
 		"-923693877":  "motionEye (camera)",
 		"926501571":   "Handle Proxy",
 		"929825723":   "WAMPSERVER",
+		"936297245":   "Twitch",
 		"937999361":   "JBoss Application Server 7",
 		"938616453":   "Mersive Solstice",
 		"943925975":   "ZyXEL",
