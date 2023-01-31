@@ -461,6 +461,7 @@ var (
 		"728788645":   "IBM Notes",
 		"731374291":   "HFS (HTTP File Server)",
 		"-736276076":  "MyASP",
+		"-740211187":  "Bing",
 		"743365239":   "Atlassian",
 		"74935566":    "WindRiver-WebServer",
 		"75230260":    "Kibana",
