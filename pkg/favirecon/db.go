@@ -307,6 +307,7 @@ var (
 		"224536051":   "Shenzhen coship electronics co.",
 		"225632504":   "Rocket Chat",
 		"-235701012":  "Cnservers LLC",
+		"239966418":   "Microsoft Outlook",
 		"240136437":   "Seagate Technology (NAS)",
 		"240606739":   "FireEye",
 		"246145559":   "Parse",
