@@ -116,6 +116,7 @@ var (
 		"-1351901211": "Luma Surveillance",
 		"-1354933624": "Dlink Webcam",
 		"1356662359":  "Outlook Web Application",
+		"1370528867":  "Yahoo",
 		"-137295400":  "NETGEAR ReadyNAS",
 		"-1378182799": "Archivematica",
 		"-1379982221": "Atlassian - Bamboo",
