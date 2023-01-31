@@ -332,6 +332,7 @@ var (
 		"-299324825":  "Lupus Electronics XT",
 		"-305179312":  "Atlassian - Confluence",
 		"309020573":   "PayPal",
+		"314969666":   "Amazon AWS",
 		"-318947884":  "Palo Alto Networks",
 		"31972968":    "Dlink Webcam",
 		"321591353":   "Node-RED",
