@@ -228,6 +228,7 @@ var (
 		"1821549811":  "(Blank) iSpy",
 		"-1822098181": "Checkpoint (Gaia)",
 		"-182423204":  "netdata dashboard",
+		"-1831547740": "Twitter",
 		"-183163807":  "Ace",
 		"1835479497":  "Technicolor Gateway",
 		"1836828108":  "OpenProject",
