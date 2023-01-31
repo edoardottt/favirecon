@@ -157,6 +157,7 @@ var (
 		"-1498185948": "Apple",
 		"1502482995":  "Indeed",
 		"-1507567067": "Baidu (IP error page)",
+		"1528355650":  "Pinterest",
 		"-1528414776": "Rumpus",
 		"1537743656":  "DropBox",
 		"1540037626":  "VKontakte",
