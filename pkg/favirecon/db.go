@@ -278,6 +278,7 @@ var (
 		"-2009722838": "React",
 		"2019488876":  "Dahua Storm (IP Camera)",
 		"-2031183903": "D-Link (Network)",
+		"-2042679530": "Alibaba",
 		"-2054889066": "Sentora",
 		"2055322029":  "Realtek",
 		"-2056503929": "iomega NAS",
