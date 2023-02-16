@@ -52,6 +52,12 @@ func TestPrepareURL(t *testing.T) {
 			err:   favirecon.ErrMalformedURL,
 		},
 		{
+			name:  "too short input URL",
+			input: "a.b",
+			want:  "",
+			err:   favirecon.ErrMalformedURL,
+		},
+		{
 			name:  "URL without protocol without path",
 			input: "edoardoottavianelli.it",
 			want:  "http://edoardoottavianelli.it/favicon.ico",
