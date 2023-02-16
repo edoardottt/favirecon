@@ -99,7 +99,7 @@ func execute(r *Runner) {
 			defer r.InWg.Done()
 
 			for value := range r.Input {
-				targetURL, err := prepareURL(value)
+				targetURL, err := PrepareURL(value)
 				if err != nil {
 					if r.Options.Verbose {
 						gologger.Error().Msgf("%s", err)
@@ -110,7 +110,7 @@ func execute(r *Runner) {
 
 				client := customClient(r.Options.Timeout)
 
-				result, err := getFavicon(targetURL+"favicon.ico", r.UserAgent, client)
+				result, err := getFavicon(targetURL, r.UserAgent, client)
 				if err != nil {
 					if r.Options.Verbose {
 						gologger.Error().Msgf("%s", err)

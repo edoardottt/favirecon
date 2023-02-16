@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"crypto/tls"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -24,6 +25,11 @@ import (
 const (
 	TLSHandshakeTimeout = 10
 	KeepAlive           = 30
+	MinURLLength        = 4
+)
+
+var (
+	ErrMalformedURL = errors.New("malformed input URL")
 )
 
 func contains(s []string, e string) bool {
@@ -59,7 +65,11 @@ func getFavicon(url, ua string, client *http.Client) (string, error) {
 	return GetFaviconHash(body), nil
 }
 
-func prepareURL(input string) (string, error) {
+func PrepareURL(input string) (string, error) {
+	if len(input) < MinURLLength {
+		return "", ErrMalformedURL
+	}
+
 	if !strings.Contains(input, "://") {
 		input = "http://" + input
 	}
@@ -69,8 +79,12 @@ func prepareURL(input string) (string, error) {
 		return "", err
 	}
 
-	if len(u.Path) == 0 || u.Path[len(u.Path)-1:] != "/" {
-		u.Path += "/"
+	if !(len(u.Path) > 3 && u.Path[len(u.Path)-4:] == ".ico") {
+		if len(u.Path) == 0 || u.Path[len(u.Path)-1:] != "/" {
+			u.Path += "/"
+		}
+
+		u.Path += "favicon.ico"
 	}
 
 	return u.Scheme + "://" + u.Host + u.Path, nil
