@@ -9,11 +9,11 @@
 
 <p align="center">
 
-  <a href="https://edoardoottavianelli.it">
+  <a href="https://github.com/edoardottt/favirecon/actions">
       <img src="https://github.com/edoardottt/favirecon/actions/workflows/go.yml/badge.svg" alt="go action">
   </a>
 
-  <a href="https://edoardoottavianelli.it">
+  <a href="https://goreportcard.com/report/github.com/edoardottt/favirecon">
       <img src="https://goreportcard.com/badge/github.com/edoardottt/favirecon" alt="go report card">
   </a>
 
