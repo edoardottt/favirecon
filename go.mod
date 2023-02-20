@@ -1,6 +1,6 @@
 module github.com/edoardottt/favirecon
 
-go 1.18
+go 1.19
 
 require (
 	github.com/edoardottt/golazy v0.1.3-dev
