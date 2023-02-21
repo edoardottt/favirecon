@@ -42,6 +42,12 @@
 Install 📡
 ----------
 
+### Using Snap
+```
+sudo snap install favirecon
+```
+
+### Using Go
 ```
 go install github.com/edoardottt/favirecon/cmd/favirecon@latest
 ```
