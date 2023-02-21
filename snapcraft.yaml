@@ -1,0 +1,23 @@
+name: favirecon
+summary: Use favicon.ico to improve your target recon phase
+description: |
+      Use favicon.ico to improve your target recon phase. 
+      Quickly detect technologies, WAF, exposed panels, known services.
+version: 0.0.2
+grade: stable
+base: core20
+
+confinement: strict
+
+apps:
+  favirecon:
+    command: bin/favirecon
+    plugs:
+      - home
+      - network
+
+parts:
+  favirecon:
+    plugin: go
+    source-type: git
+    source: https://github.com/edoardottt/favirecon
