@@ -1,6 +1,7 @@
 .vscode/
 scripts/
 /favirecon
+*.snap
 
 # Binaries for programs and plugins
 *.exe
