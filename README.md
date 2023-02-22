@@ -89,12 +89,12 @@ favirecon -l targets.txt
 ```
 
 ```bash
-echo targets.txt | favirecon
+cat targets.txt | favirecon
 ```
 
 Grab all possible results belonging to a specific target(s) (protocols needed!)
 ```bash
-echo targets.txt | favirecon -hash 708578229
+cat targets.txt | favirecon -hash 708578229
 ```
 
 Changelog 📌
