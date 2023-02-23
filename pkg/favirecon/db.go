@@ -21,6 +21,7 @@ var (
 		"-1015932800": "Ghost (CMS)",
 		"1020814938":  "Ubiquiti - AirOS",
 		"-1022206565": "CrushFTP",
+		"-1028703177": "TP Link",
 		"1037387972":  "Dlink Router",
 		"1038500535":  "D-Link (router/network)",
 		"-1038557304": "Webmin",
@@ -63,6 +64,7 @@ var (
 		"-1169314298": "INSTAR IP Cameras",
 		"1174841451":  "Drupal",
 		"1179099333":  "Youtube",
+		"1188645141":  "Huweishen",
 		"119741608":   "Teltonika",
 		"12003995":    "Walmart",
 		"-1200737715": "Kibana",
@@ -288,6 +290,7 @@ var (
 		"2019488876":  "Dahua Storm (IP Camera)",
 		"-2031183903": "D-Link (Network)",
 		"-2042679530": "Alibaba",
+		"2047156994":  "Linksys",
 		"-2054889066": "Sentora",
 		"2055322029":  "Realtek",
 		"-2056503929": "iomega NAS",
@@ -338,6 +341,8 @@ var (
 		"-277464596":  "AEM Screens",
 		"281559989":   "Huawei",
 		"283740897":   "Intelbras SA",
+		"29056450":    "Geneko",
+		"-291579889":  "WS server test page",
 		"-297069493":  "Apache Tomcat",
 		"-299287097":  "Cisco Router",
 		"-299324825":  "Lupus Electronics XT",
@@ -372,6 +377,7 @@ var (
 		"-375623619":  "bintec elmeg",
 		"381100274":   "Moxapass ioLogik Remote Ethernet I/O Server",
 		"-38580010":   "Magento",
+		"-386189083":  "aaPanel",
 		"-38705358":   "Reolink",
 		"-393788031":  "Flussonic (Video Streaming)",
 		"396533629":   "OpenVPN",
@@ -561,6 +567,7 @@ var (
 		"-991123252":  "VMware Horizon",
 		"99432374":    "MDaemon Remote Administration",
 		"998138196":   "iomega NAS",
+		"999357577":   "Hikvision camera",
 	}
 
 	ErrHashNotFound    = errors.New("hash not found")
