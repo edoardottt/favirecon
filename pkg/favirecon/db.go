@@ -16,9 +16,19 @@ import (
 //nolint: gochecknoglobals
 var (
 	db = map[string]string{
+		"-1000719429": "SpamSniper",
+		"-1001050714": "GROWI - Team collaboration software",
+		"-1003107038": "WordPress",
+		"1004209915":  "Contaware",
+		"-1004700569": "TheHost",
 		"-1010568750": "phpMyAdmin",
+		"-1012744956": "Kaspersky Endpoint Security Cloud",
+		"1012948051":  "Opengear Management Console",
 		"1015545776":  "pfSense",
 		"-1015932800": "Ghost (CMS)",
+		"1016158463":  "Netonix",
+		"-101718582":  "GIAE Online",
+		"-1017346469": "WeBWork",
 		"1020814938":  "Ubiquiti - AirOS",
 		"-1022206565": "CrushFTP",
 		"-1028703177": "TP Link",
