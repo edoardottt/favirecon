@@ -30,6 +30,8 @@ type Runner struct {
 	OutMutex  *sync.Mutex
 }
 
+// New takes as input the options and returns
+// a new runner.
 func New(options *input.Options) Runner {
 	if options.FileOutput != "" {
 		_, err := os.Create(options.FileOutput)
@@ -50,6 +52,8 @@ func New(options *input.Options) Runner {
 	}
 }
 
+// Run takes the input and executes all the tasks
+// specified in the options.
 func (r *Runner) Run() {
 	r.InWg.Add(1)
 

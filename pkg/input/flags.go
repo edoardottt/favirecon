@@ -22,6 +22,8 @@ const (
 	DefaultConcurrency = 100
 )
 
+// Options struct specifies how the tool
+// will behave.
 type Options struct {
 	Input       string
 	FileInput   string

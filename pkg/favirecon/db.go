@@ -13,7 +13,7 @@ import (
 	"github.com/projectdiscovery/goflags"
 )
 
-//nolint: gochecknoglobals
+// nolint: gochecknoglobals
 var (
 	db = map[string]string{
 		"-1000719429": "SpamSniper",
@@ -603,6 +603,9 @@ var (
 	ErrHashNotMatching = errors.New("hash not matching hash provided")
 )
 
+// CheckFavicon checks if faviconHash is present in the database. If hash (slice) is not empty,
+// it checks also if that faviconHash is one of the inputted hashes.
+// If faviconHash is not found, an error is returned.
 func CheckFavicon(faviconHash string, hash goflags.StringSlice, url ...string) (string, error) {
 	if k, ok := db[faviconHash]; ok {
 		if len(hash) != 0 {
