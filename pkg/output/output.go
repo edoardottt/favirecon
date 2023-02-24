@@ -22,6 +22,7 @@ type Result struct {
 	Mutex *sync.RWMutex
 }
 
+// New returns a new Result struct.
 func New() Result {
 	return Result{
 		Map:   map[string]struct{}{},
@@ -29,6 +30,8 @@ func New() Result {
 	}
 }
 
+// Printed checks if a string has been previously
+// printed.
 func (o *Result) Printed(found string) bool {
 	o.Mutex.RLock()
 	if _, ok := o.Map[found]; !ok {
@@ -45,6 +48,7 @@ func (o *Result) Printed(found string) bool {
 	return true
 }
 
+// Format returns a string ready to be printed.
 func (f *Found) Format() string {
 	return fmt.Sprintf("[%s] [%s] %s", f.Hash, f.Name, f.URL)
 }

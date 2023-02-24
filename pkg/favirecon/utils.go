@@ -65,6 +65,8 @@ func getFavicon(url, ua string, client *http.Client) (string, error) {
 	return GetFaviconHash(body), nil
 }
 
+// PrepareURL takes as input a string and prepares
+// the input URL in order to get the favicon icon.
 func PrepareURL(input string) (string, error) {
 	if len(input) < MinURLLength {
 		return "", ErrMalformedURL
@@ -109,6 +111,7 @@ func base64Content(input []byte) []byte {
 	return buffer.Bytes()
 }
 
+// GetFaviconHash computes the murmur3 hash.
 func GetFaviconHash(input []byte) string {
 	b64 := base64Content(input)
 	return fmt.Sprint(int32(murmur3.Sum32(b64)))
