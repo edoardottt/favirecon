@@ -57,3 +57,5 @@ issues:
   exclude-rules:
     - path: pkg/favirecon/db.go
       text: "should be written without leading space as `//nolint: gochecknoglobals`"
+    - path: pkg/output/banner.go
+      text: "should be written without leading space as `//nolint: gochecknoglobals`"

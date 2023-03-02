@@ -19,6 +19,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/projectdiscovery/gologger"
+	"github.com/projectdiscovery/mapcidr"
 	"github.com/twmb/murmur3"
 )
 
@@ -29,7 +31,8 @@ const (
 )
 
 var (
-	ErrMalformedURL = errors.New("malformed input URL")
+	ErrMalformedURL  = errors.New("malformed input URL")
+	ErrCidrBadFormat = errors.New("malformed input CIDR")
 )
 
 func contains(s []string, e string) bool {
@@ -47,6 +50,8 @@ func getFavicon(url, ua string, client *http.Client) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	gologger.Debug().Msgf("Checking favicon for %s", url)
 
 	req.Header.Add("User-Agent", ua)
 
@@ -134,4 +139,23 @@ func customClient(timeout int) *http.Client {
 	}
 
 	return &client
+}
+
+func handleCidrInput(inputCidr string) ([]string, error) {
+	if !isCidr(inputCidr) {
+		return nil, ErrCidrBadFormat
+	}
+
+	ips, err := mapcidr.IPAddresses(inputCidr)
+	if err != nil {
+		return nil, err
+	}
+
+	return ips, nil
+}
+
+// isCidr determines if the given ip is a cidr range.
+func isCidr(inputCidr string) bool {
+	_, _, err := net.ParseCIDR(inputCidr)
+	return err == nil
 }
