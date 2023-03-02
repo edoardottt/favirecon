@@ -63,6 +63,7 @@ Flags:
 INPUT:
    -u, -url string   Input domain
    -l, -list string  File containing input domains
+   -cidr             Interpret input as CIDR
 
 CONFIGURATIONS:
    -hash string[]        Filter results having these favicon hashes (comma separated)
@@ -83,6 +84,10 @@ Identify a single domain
 favirecon -u https://www.github.com
 ```
 
+```bash
+echo https://www.github.com | favirecon
+```
+
 Grab all possible results from a list of domains (protocols needed!)
 ```bash
 favirecon -l targets.txt
@@ -95,6 +100,11 @@ cat targets.txt | favirecon
 Grab all possible results belonging to a specific target(s) (protocols needed!)
 ```bash
 cat targets.txt | favirecon -hash 708578229
+```
+
+Grab all possible results from single CIDR
+```bash
+favirecon -u 192.168.1.0/24 -cidr
 ```
 
 Changelog 📌
