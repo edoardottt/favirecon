@@ -8,11 +8,11 @@ package output
 
 import "github.com/projectdiscovery/gologger"
 
-//nolint: gochecknoglobals
+// nolint: gochecknoglobals
 var printed = false
 
 const (
-	Version = "v0.0.2"
+	Version = "v0.0.3"
 	banner  = `    ____            _                          
    / __/___  __  __(_)_______  _________  ____ 
   / /_/ __ ` + `\/ | / / / ___/ _ \/ ___/ __ \/ __ \
