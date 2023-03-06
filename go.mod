@@ -4,9 +4,9 @@ go 1.19
 
 require (
 	github.com/edoardottt/golazy v0.1.3-dev
-	github.com/projectdiscovery/goflags v0.1.7
+	github.com/projectdiscovery/goflags v0.1.8
 	github.com/projectdiscovery/gologger v1.1.8
-	github.com/projectdiscovery/utils v0.0.13
+	github.com/projectdiscovery/utils v0.0.14
 )
 
 require (
@@ -14,8 +14,6 @@ require (
 	github.com/miekg/dns v1.1.50 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/projectdiscovery/blackrock v0.0.0-20221025011524-9e4efe804fb4 // indirect
-	github.com/projectdiscovery/stringsutil v0.0.1 // indirect
-	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	golang.org/x/exp v0.0.0-20221230185412-738e83a70c30 // indirect
 	golang.org/x/mod v0.6.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
@@ -38,7 +36,7 @@ require (
 	github.com/nwaples/rardecode v1.1.3 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/projectdiscovery/mapcidr v1.0.3
+	github.com/projectdiscovery/mapcidr v1.1.0
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/stretchr/testify v1.8.2
 	github.com/twmb/murmur3 v1.1.6
