@@ -40,7 +40,7 @@ require (
 	github.com/projectdiscovery/mapcidr v1.1.1
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
 	github.com/stretchr/testify v1.8.2
-	github.com/twmb/murmur3 v1.1.6
+	github.com/twmb/murmur3 v1.1.7
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	golang.org/x/net v0.8.0 // indirect
