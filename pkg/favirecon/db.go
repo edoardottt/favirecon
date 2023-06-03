@@ -623,6 +623,7 @@ var (
 		"16866410":    "SonicWall",
 		"168728537":   "Thinfinity",
 		"-1687285536": "Zammad",
+		"1687568805":  "UniFi",
 		"-1688698891": "SpamExperts",
 		"-1697334194": "Univention Portal",
 		"-1702393021": "mofinetwork",
