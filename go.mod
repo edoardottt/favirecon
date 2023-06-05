@@ -6,7 +6,7 @@ require (
 	github.com/edoardottt/golazy v0.1.3-dev
 	github.com/projectdiscovery/goflags v0.1.8
 	github.com/projectdiscovery/gologger v1.1.10
-	github.com/projectdiscovery/utils v0.0.34
+	github.com/projectdiscovery/utils v0.0.36
 )
 
 require (
@@ -39,8 +39,8 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/projectdiscovery/mapcidr v1.1.2
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
-	github.com/stretchr/testify v1.8.3
-	github.com/twmb/murmur3 v1.1.7
+	github.com/stretchr/testify v1.8.4
+	github.com/twmb/murmur3 v1.1.8
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	golang.org/x/net v0.10.0 // indirect
