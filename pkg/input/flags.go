@@ -19,7 +19,7 @@ import (
 
 const (
 	DefaultTimeout     = 10
-	DefaultConcurrency = 100
+	DefaultConcurrency = 50
 )
 
 // Options struct specifies how the tool
