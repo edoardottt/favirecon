@@ -43,12 +43,14 @@ Install 📡
 ----------
 
 ### Using Snap
-```
+
+```console
 sudo snap install favirecon
 ```
 
 ### Using Go
-```
+
+```console
 go install github.com/edoardottt/favirecon/cmd/favirecon@latest
 ```
 
@@ -67,7 +69,7 @@ INPUT:
 
 CONFIGURATIONS:
    -hash string[]        Filter results having these favicon hashes (comma separated)
-   -c, -concurrency int  Concurrency level (default 100)
+   -c, -concurrency int  Concurrency level (default 50)
    -t, -timeout int      Connection timeout in seconds (default 10)
 
 OUTPUT:
@@ -76,39 +78,44 @@ OUTPUT:
    -s, -silent         Silent output. Print only results
 ```
 
-Examples :bulb:
+Examples :bulb
 ----------
 
 Identify a single domain
-```bash
+
+```console
 favirecon -u https://www.github.com
 ```
 
-```bash
+```console
 echo https://www.github.com | favirecon
 ```
 
 Grab all possible results from a list of domains (protocols needed!)
-```bash
+
+```console
 favirecon -l targets.txt
 ```
 
-```bash
+```console
 cat targets.txt | favirecon
 ```
 
 Grab all possible results belonging to a specific target(s) (protocols needed!)
-```bash
+
+```console
 cat targets.txt | favirecon -hash 708578229
 ```
 
 Grab all possible results from single CIDR
-```bash
+
+```console
 favirecon -u 192.168.1.0/24 -cidr
 ```
 
 Changelog 📌
 -------
+
 Detailed changes for each release are documented in the [release notes](https://github.com/edoardottt/favirecon/releases).
 
 Contributing 🛠
@@ -117,9 +124,11 @@ Contributing 🛠
 Just open an [issue](https://github.com/edoardottt/favirecon/issues) / [pull request](https://github.com/edoardottt/favirecon/pulls).
 
 Before opening a pull request, download [golangci-lint](https://golangci-lint.run/usage/install/) and run
-```bash
+
+```console
 golangci-lint run
 ```
+
 If there aren't errors, go ahead :)
 
 In the news 📰
