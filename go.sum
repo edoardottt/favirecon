@@ -58,8 +58,8 @@ github.com/projectdiscovery/gologger v1.1.10 h1:XNRdtzLTdxiFGuK9gutoL752mykzXDoi
 github.com/projectdiscovery/gologger v1.1.10/go.mod h1:VqANHK7qcEq3i6/vV5HNWwdyv2aFPSrlaVDU4Ogrc6U=
 github.com/projectdiscovery/mapcidr v1.1.2 h1:Mmq/nPqvVc7fjvH/kJVK0IBOny/LrJIxZ4tQsLPCrsA=
 github.com/projectdiscovery/mapcidr v1.1.2/go.mod h1:Aoq0x/wJl6KDbtQ8OcPkjIDCqx2iEyx5ty1nzso8wXM=
-github.com/projectdiscovery/utils v0.0.37 h1:axtIvjrguwhwKCBajj3N3MCmetfi4XLUI9UUpEhxtbQ=
-github.com/projectdiscovery/utils v0.0.37/go.mod h1:sy0CqulJzn95Ro24VQPlDvwxV9yxl8YMoTDYQNxr85U=
+github.com/projectdiscovery/utils v0.0.38 h1:EIAgaP3imfcQY+laxNOU9LXh7VZNAbmiwXsQN0mAxdQ=
+github.com/projectdiscovery/utils v0.0.38/go.mod h1:5+WAxSV7yGl6SDCtR1qiOyiEMCIo3jIff+A5OiYTCgM=
 github.com/rogpeppe/go-internal v1.9.0 h1:73kH8U+JUqXU8lRuOHeVHaa/SZPifC7BkcraZVejAe8=
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
 github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d h1:hrujxIzL1woJ7AwssoOcM/tq5JjjG2yYOc8odClEiXA=
@@ -79,11 +79,11 @@ golang.org/x/exp v0.0.0-20230315142452-642cacee5cc0 h1:pVgRXcIictcr+lBQIFeiwuwtD
 golang.org/x/exp v0.0.0-20230315142452-642cacee5cc0/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
 golang.org/x/mod v0.9.0 h1:KENHtAZL2y3NLMYZeHY9DW8HW8V+kQyJsY/V9JlKvCs=
 golang.org/x/mod v0.9.0/go.mod h1:iBbtSCu2XBx23ZKBPSOrRkjjQPZFPuis4dIYUhu/chs=
-golang.org/x/net v0.10.0 h1:X2//UzNDwYmtCLn7To6G58Wr6f5ahEAQgKNzv9Y951M=
-golang.org/x/net v0.10.0/go.mod h1:0qNGK6F8kojg2nk9dLZ2mShWaEBan6FAoqfSigmmuDg=
+golang.org/x/net v0.11.0 h1:Gi2tvZIJyBtO9SDr1q9h5hEQCp/4L2RQ+ar0qjx2oNU=
+golang.org/x/net v0.11.0/go.mod h1:2L/ixqYpgIVXmeoSA/4Lu7BzTG4KIyPIryS4IsOd1oQ=
 golang.org/x/sync v0.1.0 h1:wsuoTGHzEhffawBOhz5CYhcrV4IdKZbEyZjBMuTp12o=
-golang.org/x/sys v0.8.0 h1:EBmGv8NaZBZTWvrbjNoL6HVt+IVy3QDQpJs7VRIw3tU=
-golang.org/x/sys v0.8.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.9.0 h1:KS/R3tvhPqvJvwcKfnBHJwwthS11LRhmM5D59eEXa0s=
+golang.org/x/sys v0.9.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/tools v0.7.0 h1:W4OVu8VVOaIO0yzWMNdepAulS7YfoS3Zabrm8DOXXU4=
 golang.org/x/tools v0.7.0/go.mod h1:4pg6aUX35JBAogB10C9AtvVL+qowtN4pT3CGSQex14s=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
