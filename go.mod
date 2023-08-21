@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/edoardottt/golazy v0.1.3-dev
-	github.com/projectdiscovery/goflags v0.1.16
+	github.com/projectdiscovery/goflags v0.1.17
 	github.com/projectdiscovery/gologger v1.1.11
 	github.com/projectdiscovery/utils v0.0.49
 )
