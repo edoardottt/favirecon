@@ -1,5 +1,3 @@
-https://shodan.io/search?query=http.favicon.hash%3A-1987026093
-https://shodan.io/search?query=http.favicon.hash%3A-1987375206
 https://shodan.io/search?query=http.favicon.hash%3A-1987515689
 https://shodan.io/search?query=http.favicon.hash%3A-1987532097
 https://shodan.io/search?query=http.favicon.hash%3A1987639534
