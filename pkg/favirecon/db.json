@@ -450,6 +450,7 @@
     "-198481018": "Device42",
     "-1986297913": "antMan",
     "-1987026093": "Mobotix webcam",
+    "-1987515689": "Mix Networks Inc: Customer portal",
     "-2006308185": "OTRS (Open Ticket Request System)",
     "-2009722838": "React",
     "-2031183903": "D-Link (Network)",
@@ -980,6 +981,7 @@
     "1991136554": "Instagram",
     "1991562061": "Niagara Web Server / Tridium",
     "1993518473": "cPanel Login",
+    "1999746265": "ispCP Omega Virtual Hosting Control System",
     "2006716043": "Intelbras SA",
     "2019488876": "Dahua Storm (IP Camera)",
     "2047156994": "Linksys",
@@ -1142,7 +1144,5 @@
     "99395752": "Slack",
     "99432374": "MDaemon Remote Administration",
     "998138196": "iomega NAS",
-    "999357577": "Hikvision camera",
-    "1999746265": "Virtual Hosting Control System",
-    "-1987515689": "Customer portal"
+    "999357577": "Hikvision camera"
 }
