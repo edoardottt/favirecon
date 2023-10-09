@@ -7,7 +7,6 @@ https://shodan.io/search?query=http.favicon.hash%3A-1995251161
 https://shodan.io/search?query=http.favicon.hash%3A-1996576874
 https://shodan.io/search?query=http.favicon.hash%3A199682422
 https://shodan.io/search?query=http.favicon.hash%3A-1998633262
-https://shodan.io/search?query=http.favicon.hash%3A1999746265
 https://shodan.io/search?query=http.favicon.hash%3A-2000384200
 https://shodan.io/search?query=http.favicon.hash%3A2001262648
 https://shodan.io/search?query=http.favicon.hash%3A2002870448
