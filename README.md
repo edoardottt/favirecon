@@ -78,7 +78,7 @@ OUTPUT:
    -s, -silent         Silent output. Print only results
 ```
 
-Examples :bulb
+Examples 💡
 ----------
 
 Identify a single domain
