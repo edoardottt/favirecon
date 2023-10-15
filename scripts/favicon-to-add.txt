@@ -1,12 +1,8 @@
 https://shodan.io/search?query=http.favicon.hash%3A1992142317
 https://shodan.io/search?query=http.favicon.hash%3A-1995251161
-https://shodan.io/search?query=http.favicon.hash%3A-1996576874
-https://shodan.io/search?query=http.favicon.hash%3A199682422
-https://shodan.io/search?query=http.favicon.hash%3A-1998633262
 https://shodan.io/search?query=http.favicon.hash%3A-2000384200
 https://shodan.io/search?query=http.favicon.hash%3A2001262648
 https://shodan.io/search?query=http.favicon.hash%3A2002870448
-https://shodan.io/search?query=http.favicon.hash%3A-2007650109
 https://shodan.io/search?query=http.favicon.hash%3A-201070369
 https://shodan.io/search?query=http.favicon.hash%3A-2012355198
 https://shodan.io/search?query=http.favicon.hash%3A2012805438
