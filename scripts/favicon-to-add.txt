@@ -17,7 +17,6 @@ https://shodan.io/search?query=http.favicon.hash%3A-2012355198
 https://shodan.io/search?query=http.favicon.hash%3A2012805438
 https://shodan.io/search?query=http.favicon.hash%3A-2013156129
 https://shodan.io/search?query=http.favicon.hash%3A2013200368
-https://shodan.io/search?query=http.favicon.hash%3A2021342287
 https://shodan.io/search?query=http.favicon.hash%3A-2022766869
 https://shodan.io/search?query=http.favicon.hash%3A-2023266783
 https://shodan.io/search?query=http.favicon.hash%3A2023619029
