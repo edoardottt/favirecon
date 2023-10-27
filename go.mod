@@ -2,8 +2,6 @@ module github.com/edoardottt/favirecon
 
 go 1.21
 
-toolchain go1.21.2
-
 require (
 	github.com/edoardottt/golazy v0.1.3-dev
 	github.com/projectdiscovery/goflags v0.1.25
