@@ -1,0 +1,20 @@
+name: Check Duplicates
+
+on:
+    push:
+      branches: [ "main","devel"]
+    pull_request:
+      branches: [ "main","devel"]
+
+jobs:
+  check-duplicates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v2
+
+      - name: Run Check Duplicates Script
+        run: |
+          chmod +x scripts/check-dups.sh
+          ./scripts/check-dups.sh
+        working-directory: ${{ github.workspace }}
