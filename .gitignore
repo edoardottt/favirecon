@@ -1,6 +1,5 @@
 .vscode/
 scripts/check-present.sh
-scripts/populate-db.sh
 /favirecon
 *.snap
 
