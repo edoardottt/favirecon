@@ -793,7 +793,6 @@ https://shodan.io/search?query=http.favicon.hash%3A-893681401
 https://shodan.io/search?query=http.favicon.hash%3A-894432457
 https://shodan.io/search?query=http.favicon.hash%3A896082112
 https://shodan.io/search?query=http.favicon.hash%3A896321972
-https://shodan.io/search?query=http.favicon.hash%3A899301681
 https://shodan.io/search?query=http.favicon.hash%3A89931604
 https://shodan.io/search?query=http.favicon.hash%3A899320116
 https://shodan.io/search?query=http.favicon.hash%3A902479617
