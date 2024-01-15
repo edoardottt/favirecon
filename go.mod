@@ -6,13 +6,13 @@ require (
 	github.com/edoardottt/golazy v0.1.3-dev
 	github.com/projectdiscovery/goflags v0.1.35
 	github.com/projectdiscovery/gologger v1.1.12
-	github.com/projectdiscovery/utils v0.0.72
+	github.com/projectdiscovery/utils v0.0.73
 )
 
 require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/klauspost/compress v1.11.4 // indirect
+	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/klauspost/pgzip v1.2.5 // indirect
 	github.com/mholt/archiver/v3 v3.5.1 // indirect
 	github.com/miekg/dns v1.1.56 // indirect
@@ -21,7 +21,7 @@ require (
 	github.com/projectdiscovery/blackrock v0.0.1 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/mod v0.13.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/tools v0.14.0 // indirect
 )
 
