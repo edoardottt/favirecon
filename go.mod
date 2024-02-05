@@ -3,7 +3,7 @@ module github.com/edoardottt/favirecon
 go 1.21
 
 require (
-	github.com/edoardottt/golazy v0.1.3-dev
+	github.com/edoardottt/golazy v0.1.4
 	github.com/projectdiscovery/goflags v0.1.37
 	github.com/projectdiscovery/gologger v1.1.12
 	github.com/projectdiscovery/utils v0.0.76
