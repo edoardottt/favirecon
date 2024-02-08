@@ -20,6 +20,7 @@ import (
 const (
 	DefaultTimeout     = 10
 	DefaultConcurrency = 50
+	DefaultRateLimit   = 0
 )
 
 // Options struct specifies how the tool
@@ -35,6 +36,7 @@ type Options struct {
 	Concurrency int
 	Timeout     int
 	Cidr        bool
+	RateLimit   int
 }
 
 // configureOutput configures the output on the screen.
@@ -64,6 +66,7 @@ func ParseOptions() *Options {
 		flagSet.StringSliceVarP(&options.Hash, "hash", "", nil, `Filter results having these favicon hashes (comma separated)`, goflags.CommaSeparatedStringSliceOptions),
 		flagSet.IntVarP(&options.Concurrency, "concurrency", "c", DefaultConcurrency, `Concurrency level`),
 		flagSet.IntVarP(&options.Timeout, "timeout", "t", DefaultTimeout, `Connection timeout in seconds`),
+		flagSet.IntVarP(&options.RateLimit, "rate-limit", "rl", DefaultRateLimit, `Set a rate limit (per second)`),
 	)
 
 	// Output

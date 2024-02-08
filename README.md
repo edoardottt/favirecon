@@ -71,6 +71,7 @@ CONFIGURATIONS:
    -hash string[]        Filter results having these favicon hashes (comma separated)
    -c, -concurrency int  Concurrency level (default 50)
    -t, -timeout int      Connection timeout in seconds (default 10)
+   -rl, -rate-limit int  Set a rate limit (per second)
 
 OUTPUT:
    -o, -output string  File to write output results
