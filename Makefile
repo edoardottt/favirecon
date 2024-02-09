@@ -15,12 +15,12 @@ update:
 lint:
 	@golangci-lint run
 
-linux:
-	@go build -o favirecon ./...
+build:
+	@go build ./cmd/favirecon/
 	@sudo mv favirecon /usr/local/bin/
 	@echo "Done."
 
-unlinux:
+clean:
 	@sudo rm -rf /usr/local/bin/favirecon
 	@echo "Done."
 
