@@ -4,9 +4,9 @@ go 1.21
 
 require (
 	github.com/edoardottt/golazy v0.1.4
-	github.com/projectdiscovery/goflags v0.1.41
+	github.com/projectdiscovery/goflags v0.1.42
 	github.com/projectdiscovery/gologger v1.1.12
-	github.com/projectdiscovery/utils v0.0.81
+	github.com/projectdiscovery/utils v0.0.82
 )
 
 require (
@@ -45,7 +45,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/projectdiscovery/mapcidr v1.1.16
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	github.com/twmb/murmur3 v1.1.8
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
