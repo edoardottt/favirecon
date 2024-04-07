@@ -42,13 +42,19 @@
 Install 📡
 ----------
 
-### Using Snap
+### Homebrew
+
+```console
+brew install favirecon
+```
+
+### Snap
 
 ```console
 sudo snap install favirecon
 ```
 
-### Using Go
+### Go
 
 ```console
 go install github.com/edoardottt/favirecon/cmd/favirecon@latest
