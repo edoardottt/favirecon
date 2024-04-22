@@ -2,7 +2,7 @@ module github.com/edoardottt/favirecon
 
 go 1.21.0
 
-toolchain 1.21.0
+toolchain go1.21.0
 
 require (
 	github.com/edoardottt/golazy v0.1.4
