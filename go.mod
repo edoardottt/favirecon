@@ -6,7 +6,7 @@ require (
 	github.com/edoardottt/golazy v0.1.4
 	github.com/projectdiscovery/goflags v0.1.51
 	github.com/projectdiscovery/gologger v1.1.12
-	github.com/projectdiscovery/utils v0.0.91
+	github.com/projectdiscovery/utils v0.0.92
 )
 
 require (
