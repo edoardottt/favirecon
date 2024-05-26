@@ -156,9 +156,7 @@ func execute(r *Runner) {
 
 				result, err := getFavicon(targetURL, r.UserAgent, client)
 				if err != nil {
-					if r.Options.Verbose {
-						gologger.Error().Msgf("%s", err)
-					}
+					gologger.Error().Msgf("%s", err)
 
 					return
 				}
