@@ -51,5 +51,6 @@ func checkProxy(proxy string) bool {
 	}
 
 	_, err := url.Parse(proxy)
+
 	return err == nil
 }
