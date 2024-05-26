@@ -78,6 +78,7 @@ CONFIGURATIONS:
    -c, -concurrency int  Concurrency level (default 50)
    -t, -timeout int      Connection timeout in seconds (default 10)
    -rl, -rate-limit int  Set a rate limit (per second)
+   -px, -proxy string    Set a proxy server (URL)
 
 OUTPUT:
    -o, -output string  File to write output results
@@ -118,6 +119,12 @@ Grab all possible results from single CIDR
 
 ```console
 favirecon -u 192.168.1.0/24 -cidr
+```
+
+Use a Proxy
+
+```console
+favirecon -u https://www.github.com -px http://127.0.0.1:8080
 ```
 
 Changelog 📌
