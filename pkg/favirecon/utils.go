@@ -19,6 +19,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/edoardottt/favirecon/pkg/input"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/mapcidr"
 	"github.com/twmb/murmur3"
@@ -122,23 +123,36 @@ func GetFaviconHash(input []byte) string {
 	return fmt.Sprint(int32(murmur3.Sum32(b64)))
 }
 
-func customClient(timeout int) *http.Client {
+func customClient(options *input.Options) (*http.Client, error) {
 	transport := http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		Proxy:           http.ProxyFromEnvironment,
 		Dial: (&net.Dialer{
-			Timeout:   time.Duration(timeout) * time.Second,
+			Timeout:   time.Duration(options.Timeout) * time.Second,
 			KeepAlive: KeepAlive * time.Second,
 		}).Dial,
 		TLSHandshakeTimeout: TLSHandshakeTimeout * time.Second,
 	}
 
-	client := http.Client{
-		Transport: &transport,
-		Timeout:   time.Duration(timeout) * time.Second,
+	if options.Proxy != "" {
+		u, err := url.Parse(options.Proxy)
+		if err != nil {
+			return nil, err
+		}
+
+		transport.Proxy = http.ProxyURL(u)
+
+		if options.Verbose {
+			gologger.Debug().Msgf("Using Proxy %s", options.Proxy)
+		}
 	}
 
-	return &client
+	client := http.Client{
+		Transport: &transport,
+		Timeout:   time.Duration(options.Timeout) * time.Second,
+	}
+
+	return &client, nil
 }
 
 func handleCidrInput(inputCidr string) ([]string, error) {
