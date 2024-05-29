@@ -38,6 +38,7 @@ type Options struct {
 	Cidr        bool
 	RateLimit   int
 	Proxy       string
+	JSON        bool
 }
 
 // configureOutput configures the output on the screen.
@@ -76,6 +77,7 @@ func ParseOptions() *Options {
 		flagSet.StringVarP(&options.FileOutput, "output", "o", "", `File to write output results`),
 		flagSet.BoolVarP(&options.Verbose, "verbose", "v", false, `Verbose output`),
 		flagSet.BoolVarP(&options.Silent, "silent", "s", false, `Silent output. Print only results`),
+		flagSet.BoolVarP(&options.JSON, "json", "j", false, `JSON output`),
 	)
 
 	if help() || noArgs() {

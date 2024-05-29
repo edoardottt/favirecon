@@ -7,14 +7,15 @@ This repository is under MIT License https://github.com/edoardottt/favirecon/blo
 package output
 
 import (
+	"encoding/json"
 	"fmt"
 	"sync"
 )
 
 type Found struct {
-	URL  string
-	Hash string
-	Name string
+	URL  string `json:"URL,omitempty"`
+	Hash string `json:"Hash,omitempty"`
+	Name string `json:"Name,omitempty"`
 }
 
 type Result struct {
@@ -30,8 +31,7 @@ func New() Result {
 	}
 }
 
-// Printed checks if a string has been previously
-// printed.
+// Printed checks if a string has been previously printed.
 func (o *Result) Printed(found string) bool {
 	o.Mutex.RLock()
 	if _, ok := o.Map[found]; !ok {
@@ -51,4 +51,14 @@ func (o *Result) Printed(found string) bool {
 // Format returns a string ready to be printed.
 func (f *Found) Format() string {
 	return fmt.Sprintf("[%s] [%s] %s", f.Hash, f.Name, f.URL)
+}
+
+// FormatJSON returns the input as JSON string.
+func (f *Found) FormatJSON() ([]byte, error) {
+	jsonOutput, err := json.Marshal(f)
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonOutput, nil
 }
