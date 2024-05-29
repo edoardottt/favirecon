@@ -84,6 +84,7 @@ OUTPUT:
    -o, -output string  File to write output results
    -v, -verbose        Verbose output
    -s, -silent         Silent output. Print only results
+   -j, -json           JSON output
 ```
 
 Examples 💡
@@ -125,6 +126,12 @@ Use a Proxy
 
 ```console
 favirecon -u https://www.github.com -px http://127.0.0.1:8080
+```
+
+JSON Output
+
+```console
+favirecon -u https://www.github.com -j
 ```
 
 Changelog 📌

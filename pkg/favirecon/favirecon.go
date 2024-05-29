@@ -202,6 +202,15 @@ func writeOutput(wg *sync.WaitGroup, m *sync.Mutex, options *input.Options, o ou
 
 	out := o.Format()
 
+	if options.JSON {
+		outJSON, err := o.FormatJSON()
+		if err != nil {
+			gologger.Fatal().Msg(err.Error())
+		}
+
+		out = string(outJSON)
+	}
+
 	if options.Output != nil {
 		if _, err := options.Output.Write([]byte(out + "\n")); err != nil && options.Verbose {
 			gologger.Fatal().Msg(err.Error())
