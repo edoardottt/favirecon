@@ -4,7 +4,7 @@ go 1.21.0
 
 require (
 	github.com/edoardottt/golazy v0.1.4
-	github.com/projectdiscovery/goflags v0.1.54
+	github.com/projectdiscovery/goflags v0.1.55
 	github.com/projectdiscovery/gologger v1.1.12
 	github.com/projectdiscovery/mapcidr v1.1.34
 	github.com/projectdiscovery/utils v0.1.3
@@ -35,7 +35,6 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nwaples/rardecode v1.1.3 // indirect
-	github.com/pierrec/lz4/v4 v4.1.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/projectdiscovery/blackrock v0.0.1 // indirect
