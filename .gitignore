@@ -1,5 +1,8 @@
 .vscode/
 scripts/check-present.sh
+scripts/compute-murmur3.go
+scripts/fav-google.py
+scripts/mm3.py
 /favirecon
 *.snap
 
