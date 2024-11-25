@@ -8,7 +8,7 @@ require (
 	github.com/projectdiscovery/gologger v1.1.31
 	github.com/projectdiscovery/mapcidr v1.1.34
 	github.com/projectdiscovery/utils v0.2.18
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	github.com/twmb/murmur3 v1.1.8
 	go.uber.org/ratelimit v0.3.1
 )
