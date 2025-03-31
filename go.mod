@@ -5,7 +5,7 @@ go 1.23.0
 require (
 	github.com/edoardottt/golazy v0.1.4
 	github.com/projectdiscovery/goflags v0.1.74
-	github.com/projectdiscovery/gologger v1.1.50
+	github.com/projectdiscovery/gologger v1.1.51
 	github.com/projectdiscovery/mapcidr v1.1.34
 	github.com/projectdiscovery/utils v0.4.16
 	github.com/stretchr/testify v1.10.0
