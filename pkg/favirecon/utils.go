@@ -19,6 +19,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/edoardottt/favirecon/pkg/input"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/mapcidr"
@@ -32,8 +33,12 @@ const (
 )
 
 var (
-	ErrMalformedURL  = errors.New("malformed input URL")
-	ErrCidrBadFormat = errors.New("malformed input CIDR")
+	ErrMalformedURL           = errors.New("malformed input URL")
+	ErrCidrBadFormat          = errors.New("malformed input CIDR")
+	ErrFaviconNotFound        = errors.New("favicon not found")
+	ErrFaviconLinkTagNotFound = errors.New("no favicon link tag found")
+	ErrHTMLNotFetched         = errors.New("failed to fetch HTML")
+	ErrInvalidDataURI         = errors.New("invalid data URI")
 )
 
 func contains(s []string, e string) bool {
@@ -46,10 +51,10 @@ func contains(s []string, e string) bool {
 	return false
 }
 
-func getFavicon(url, ua string, client *http.Client) (string, error) {
+func getFavicon(url, ua string, client *http.Client) (bool, string, error) {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		return "", err
+		return false, "", err
 	}
 
 	gologger.Debug().Msgf("Checking favicon for %s", url)
@@ -58,17 +63,109 @@ func getFavicon(url, ua string, client *http.Client) (string, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return "", err
+		return false, "", err
 	}
 
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
+	if resp.StatusCode != http.StatusOK {
+		return false, "", ErrFaviconNotFound
 	}
 
-	return GetFaviconHash(body), nil
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return false, "", err
+	}
+
+	if len(body) == 0 {
+		return false, "", nil
+	}
+
+	return true, GetFaviconHash(body), nil
+}
+
+func extractFaviconFromHTML(pageURL, ua string, client *http.Client) (string, string, error) {
+	req, err := http.NewRequest(http.MethodGet, pageURL, nil)
+	if err != nil {
+		return "", "", err
+	}
+
+	req.Header.Add("User-Agent", ua)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", "", err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", "", ErrHTMLNotFetched
+	}
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", "", err
+	}
+
+	var faviconHref string
+
+	doc.Find("link").EachWithBreak(func(i int, s *goquery.Selection) bool {
+		rel, _ := s.Attr("rel")
+		href, ok := s.Attr("href")
+
+		if ok && strings.Contains(rel, "icon") {
+			faviconHref = href
+			return false // break loop
+		}
+
+		return true
+	})
+
+	if faviconHref == "" {
+		return "", "", ErrFaviconLinkTagNotFound
+	}
+
+	// handle base64 data
+	if strings.HasPrefix(faviconHref, "data:image") {
+		base64Data := strings.SplitN(faviconHref, ",", 2)
+		if len(base64Data) != 2 {
+			return "", "", ErrInvalidDataURI
+		}
+
+		decoded, err := base64.StdEncoding.DecodeString(base64Data[1])
+		if err != nil {
+			return "", "", err
+		}
+
+		return faviconHref, GetFaviconHash(decoded), nil
+	}
+
+	faviconURL := resolveURL(pageURL, faviconHref)
+
+	found, favicon, err := getFavicon(faviconURL, ua, client)
+	if err != nil {
+		return faviconURL, "", err
+	}
+
+	if !found {
+		return "", "", ErrFaviconNotFound
+	}
+
+	return faviconURL, favicon, nil
+}
+
+func resolveURL(baseURL, ref string) string {
+	base, err := url.Parse(baseURL)
+	if err != nil {
+		return ref // fallback
+	}
+
+	u, err := url.Parse(ref)
+	if err != nil {
+		return ref
+	}
+
+	return base.ResolveReference(u).String()
 }
 
 // PrepareURL takes as input a string and prepares
