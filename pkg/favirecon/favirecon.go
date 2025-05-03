@@ -186,7 +186,7 @@ func execute(r *Runner) {
 
 					faviconURL, result, err = extractFaviconFromHTML(value, r.UserAgent, client)
 					if err != nil {
-						gologger.Error().Msgf("Favicon not found for %s: %s", value, err)
+						gologger.Debug().Msgf("Favicon not found for %s: %s", value, err)
 						continue
 					}
 				}
