@@ -3,7 +3,7 @@
   <br>
 </h1>
 
-<h4 align="center">Use favicon.ico to improve your target recon phase</h4>
+<h4 align="center">Use favicons to improve your target recon phase</h4>
 
 <h6 align="center"> Coded with 💙 by edoardottt </h6>
 
