@@ -8,37 +8,27 @@ package favirecon
 
 import (
 	"bytes"
-	"crypto/tls"
 	"encoding/base64"
 	"errors"
 	"fmt"
 	"io"
 	"net"
 	"net/http"
-	"net/url"
 	"strings"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/edoardottt/favirecon/pkg/input"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/mapcidr"
 	"github.com/twmb/murmur3"
 )
 
-const (
-	TLSHandshakeTimeout = 10
-	KeepAlive           = 30
-	MinURLLength        = 4
-)
-
 var (
-	ErrMalformedURL           = errors.New("malformed input URL")
 	ErrCidrBadFormat          = errors.New("malformed input CIDR")
 	ErrFaviconNotFound        = errors.New("favicon not found")
 	ErrFaviconLinkTagNotFound = errors.New("no favicon link tag found")
 	ErrHTMLNotFetched         = errors.New("failed to fetch HTML")
 	ErrInvalidDataURI         = errors.New("invalid data URI")
+	ErrEmptyBody              = errors.New("empty body")
 )
 
 func contains(s []string, e string) bool {
@@ -78,7 +68,7 @@ func getFavicon(url, ua string, client *http.Client) (bool, string, error) {
 	}
 
 	if len(body) == 0 {
-		return false, "", nil
+		return false, "", ErrEmptyBody
 	}
 
 	return true, GetFaviconHash(body), nil
@@ -113,7 +103,7 @@ func extractFaviconFromHTML(pageURL, ua string, client *http.Client) (string, st
 		rel, _ := s.Attr("rel")
 		href, ok := s.Attr("href")
 
-		if ok && strings.Contains(rel, "icon") {
+		if ok && strings.Contains(strings.ToLower(rel), "icon") {
 			faviconHref = href
 			return false // break loop
 		}
@@ -154,47 +144,6 @@ func extractFaviconFromHTML(pageURL, ua string, client *http.Client) (string, st
 	return faviconURL, favicon, nil
 }
 
-func resolveURL(baseURL, ref string) string {
-	base, err := url.Parse(baseURL)
-	if err != nil {
-		return ref // fallback
-	}
-
-	u, err := url.Parse(ref)
-	if err != nil {
-		return ref
-	}
-
-	return base.ResolveReference(u).String()
-}
-
-// PrepareURL takes as input a string and prepares
-// the input URL in order to get the favicon icon.
-func PrepareURL(input string) (string, error) {
-	if len(input) < MinURLLength {
-		return "", ErrMalformedURL
-	}
-
-	if !strings.Contains(input, "://") {
-		input = "http://" + input
-	}
-
-	u, err := url.Parse(input)
-	if err != nil {
-		return "", err
-	}
-
-	if !(len(u.Path) > 3 && u.Path[len(u.Path)-4:] == ".ico") {
-		if len(u.Path) == 0 || u.Path[len(u.Path)-1:] != "/" {
-			u.Path += "/"
-		}
-
-		u.Path += "favicon.ico"
-	}
-
-	return u.Scheme + "://" + u.Host + u.Path, nil
-}
-
 // base64Content : RFC2045.
 func base64Content(input []byte) []byte {
 	inputEncoded := base64.StdEncoding.EncodeToString(input)
@@ -218,38 +167,6 @@ func base64Content(input []byte) []byte {
 func GetFaviconHash(input []byte) string {
 	b64 := base64Content(input)
 	return fmt.Sprint(int32(murmur3.Sum32(b64)))
-}
-
-func customClient(options *input.Options) (*http.Client, error) {
-	transport := http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		Proxy:           http.ProxyFromEnvironment,
-		Dial: (&net.Dialer{
-			Timeout:   time.Duration(options.Timeout) * time.Second,
-			KeepAlive: KeepAlive * time.Second,
-		}).Dial,
-		TLSHandshakeTimeout: TLSHandshakeTimeout * time.Second,
-	}
-
-	if options.Proxy != "" {
-		u, err := url.Parse(options.Proxy)
-		if err != nil {
-			return nil, err
-		}
-
-		transport.Proxy = http.ProxyURL(u)
-
-		if options.Verbose {
-			gologger.Debug().Msgf("Using Proxy %s", options.Proxy)
-		}
-	}
-
-	client := http.Client{
-		Transport: &transport,
-		Timeout:   time.Duration(options.Timeout) * time.Second,
-	}
-
-	return &client, nil
 }
 
 func handleCidrInput(inputCidr string) ([]string, error) {

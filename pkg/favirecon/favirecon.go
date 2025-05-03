@@ -155,22 +155,22 @@ func execute(r *Runner) {
 		go func() {
 			defer r.InWg.Done()
 
+			client, err := customClient(&r.Options)
+			if err != nil {
+				gologger.Error().Msgf("%s", err)
+
+				return
+			}
+
 			for value := range r.Input {
 				faviconURL, err := PrepareURL(value)
 				if err != nil {
 					gologger.Error().Msgf("%s", err)
 
-					return
+					continue
 				}
 
 				rl.Take()
-
-				client, err := customClient(&r.Options)
-				if err != nil {
-					gologger.Error().Msgf("%s", err)
-
-					return
-				}
 
 				found, result, err := getFavicon(faviconURL, r.UserAgent, client)
 				if err != nil {
@@ -196,9 +196,11 @@ func execute(r *Runner) {
 					if r.Options.Verbose {
 						gologger.Error().Msgf("%s", err)
 					}
-				} else {
-					r.Output <- output.Found{URL: value, Name: foundDB, Hash: result}
+
+					continue
 				}
+
+				r.Output <- output.Found{URL: value, Name: foundDB, Hash: result}
 			}
 		}()
 	}
