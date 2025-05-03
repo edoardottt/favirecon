@@ -8,6 +8,7 @@ package favirecon
 
 import (
 	"crypto/tls"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
@@ -58,4 +59,37 @@ func customClient(options *input.Options) (*http.Client, error) {
 	}
 
 	return &client, nil
+}
+
+func getFavicon(url, ua string, client *http.Client) (bool, string, error) {
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return false, "", err
+	}
+
+	gologger.Debug().Msgf("Checking favicon for %s", url)
+
+	req.Header.Add("User-Agent", ua)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "", err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, "", ErrFaviconNotFound
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return false, "", err
+	}
+
+	if len(body) == 0 {
+		return false, "", ErrEmptyBody
+	}
+
+	return true, GetFaviconHash(body), nil
 }
