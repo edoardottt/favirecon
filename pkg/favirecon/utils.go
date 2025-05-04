@@ -8,32 +8,18 @@ package favirecon
 
 import (
 	"bytes"
-	"crypto/tls"
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"io"
 	"net"
-	"net/http"
-	"net/url"
-	"strings"
-	"time"
 
-	"github.com/edoardottt/favirecon/pkg/input"
-	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/mapcidr"
 	"github.com/twmb/murmur3"
 )
 
-const (
-	TLSHandshakeTimeout = 10
-	KeepAlive           = 30
-	MinURLLength        = 4
-)
-
 var (
-	ErrMalformedURL  = errors.New("malformed input URL")
 	ErrCidrBadFormat = errors.New("malformed input CIDR")
+	ErrEmptyBody     = errors.New("empty body")
 )
 
 func contains(s []string, e string) bool {
@@ -44,58 +30,6 @@ func contains(s []string, e string) bool {
 	}
 
 	return false
-}
-
-func getFavicon(url, ua string, client *http.Client) (string, error) {
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		return "", err
-	}
-
-	gologger.Debug().Msgf("Checking favicon for %s", url)
-
-	req.Header.Add("User-Agent", ua)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", err
-	}
-
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-
-	return GetFaviconHash(body), nil
-}
-
-// PrepareURL takes as input a string and prepares
-// the input URL in order to get the favicon icon.
-func PrepareURL(input string) (string, error) {
-	if len(input) < MinURLLength {
-		return "", ErrMalformedURL
-	}
-
-	if !strings.Contains(input, "://") {
-		input = "http://" + input
-	}
-
-	u, err := url.Parse(input)
-	if err != nil {
-		return "", err
-	}
-
-	if !(len(u.Path) > 3 && u.Path[len(u.Path)-4:] == ".ico") {
-		if len(u.Path) == 0 || u.Path[len(u.Path)-1:] != "/" {
-			u.Path += "/"
-		}
-
-		u.Path += "favicon.ico"
-	}
-
-	return u.Scheme + "://" + u.Host + u.Path, nil
 }
 
 // base64Content : RFC2045.
@@ -121,38 +55,6 @@ func base64Content(input []byte) []byte {
 func GetFaviconHash(input []byte) string {
 	b64 := base64Content(input)
 	return fmt.Sprint(int32(murmur3.Sum32(b64)))
-}
-
-func customClient(options *input.Options) (*http.Client, error) {
-	transport := http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		Proxy:           http.ProxyFromEnvironment,
-		Dial: (&net.Dialer{
-			Timeout:   time.Duration(options.Timeout) * time.Second,
-			KeepAlive: KeepAlive * time.Second,
-		}).Dial,
-		TLSHandshakeTimeout: TLSHandshakeTimeout * time.Second,
-	}
-
-	if options.Proxy != "" {
-		u, err := url.Parse(options.Proxy)
-		if err != nil {
-			return nil, err
-		}
-
-		transport.Proxy = http.ProxyURL(u)
-
-		if options.Verbose {
-			gologger.Debug().Msgf("Using Proxy %s", options.Proxy)
-		}
-	}
-
-	client := http.Client{
-		Transport: &transport,
-		Timeout:   time.Duration(options.Timeout) * time.Second,
-	}
-
-	return &client, nil
 }
 
 func handleCidrInput(inputCidr string) ([]string, error) {

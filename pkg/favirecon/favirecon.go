@@ -8,6 +8,7 @@ package favirecon
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"sync"
@@ -126,6 +127,23 @@ func pushInput(r *Runner) {
 	close(r.Input)
 }
 
+/*
+Try /favicon.ico first. Most common and lightweight check.
+Accept it only if:
+- Status is 200.
+- Content-Type is an image.
+- Body length is > 0 (some sites return 200 but empty).
+If valid, hash and lookup. ✅ Done.
+
+Fallback to parsing <link rel="icon" ...> in the HTML <head>:
+- Fetch original input URL (not with /favicon.ico appended).
+- Parse the HTML.
+- Extract: rel=icon, rel=shortcut icon, rel=apple-touch-icon
+If href is:
+- A relative path → resolve against base URL.
+- A full URL → use as-is.
+- Data URL → decode and hash directly.
+*/
 func execute(r *Runner) {
 	defer r.InWg.Done()
 
@@ -137,38 +155,52 @@ func execute(r *Runner) {
 		go func() {
 			defer r.InWg.Done()
 
+			client, err := customClient(&r.Options)
+			if err != nil {
+				gologger.Error().Msgf("%s", err)
+
+				return
+			}
+
 			for value := range r.Input {
-				targetURL, err := PrepareURL(value)
+				faviconURL, err := PrepareURL(value)
 				if err != nil {
 					gologger.Error().Msgf("%s", err)
 
-					return
+					continue
 				}
 
 				rl.Take()
 
-				client, err := customClient(&r.Options)
+				found, result, err := getFavicon(faviconURL, r.UserAgent, client)
 				if err != nil {
-					gologger.Error().Msgf("%s", err)
-
-					return
+					if errors.Is(err, ErrFaviconNotFound) {
+						gologger.Debug().Msgf("%s for url %s", err.Error(), value)
+					} else {
+						gologger.Error().Msgf("%s", err)
+					}
 				}
 
-				result, err := getFavicon(targetURL, r.UserAgent, client)
-				if err != nil {
-					gologger.Error().Msgf("%s", err)
+				if !found {
+					gologger.Debug().Msgf("Fallback to HTML parsing for %s", value)
 
-					return
+					faviconURL, result, err = extractFaviconFromHTML(value, r.UserAgent, client)
+					if err != nil {
+						gologger.Debug().Msgf("Favicon not found for %s: %s", value, err)
+						continue
+					}
 				}
 
-				found, err := CheckFavicon(result, r.Options.Hash, targetURL)
+				foundDB, err := CheckFavicon(result, r.Options.Hash, faviconURL)
 				if err != nil {
 					if r.Options.Verbose {
 						gologger.Error().Msgf("%s", err)
 					}
-				} else {
-					r.Output <- output.Found{URL: targetURL, Name: found, Hash: result}
+
+					continue
 				}
+
+				r.Output <- output.Found{URL: value, Name: foundDB, Hash: result}
 			}
 		}()
 	}
