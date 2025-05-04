@@ -1,7 +1,7 @@
 release:
   header: |
     ## favirecon {{ .Tag }} 🥳
-    *Use favicon.ico to improve your target recon phase. Quickly detect technologies, WAF, exposed panels, known services.*
+    *Use favicons to improve your target recon phase. Quickly detect technologies, WAF, exposed panels, known services.*
 
   footer: |
       If you encounter a problem, just open an [issue](https://github.com/edoardottt/favirecon/issues)
