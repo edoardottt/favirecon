@@ -8,7 +8,7 @@ package output
 
 import "github.com/projectdiscovery/gologger"
 
-// nolint: gochecknoglobals
+//nolint:gochecknoglobals
 var printed = false
 
 const (

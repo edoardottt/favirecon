@@ -17,7 +17,7 @@ import (
 	"github.com/projectdiscovery/goflags"
 )
 
-// nolint: gochecknoglobals
+//nolint:gochecknoglobals
 var (
 	//go:embed db.json
 	dbJSON string

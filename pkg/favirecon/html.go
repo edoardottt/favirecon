@@ -34,7 +34,8 @@ func extractFaviconFromHTML(pageURL, ua string, client *http.Client) (string, st
 	if err != nil {
 		return "", "", err
 	}
-	defer resp.Body.Close()
+
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		return "", "", ErrHTMLNotFetched
