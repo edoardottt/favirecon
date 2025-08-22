@@ -12,7 +12,7 @@ import "github.com/projectdiscovery/gologger"
 var printed = false
 
 const (
-	Version = "v1.0.0"
+	Version = "v1.0.1"
 	banner  = `    ____            _                          
    / __/___  __  __(_)_______  _________  ____ 
   / /_/ __ ` + `\/ | / / / ___/ _ \/ ___/ __ \/ __ \
