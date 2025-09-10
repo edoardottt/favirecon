@@ -8,8 +8,8 @@ require (
 	github.com/projectdiscovery/goflags v0.1.74
 	github.com/projectdiscovery/gologger v1.1.54
 	github.com/projectdiscovery/mapcidr v1.1.34
-	github.com/projectdiscovery/utils v0.4.23
-	github.com/stretchr/testify v1.11.0
+	github.com/projectdiscovery/utils v0.5.0
+	github.com/stretchr/testify v1.11.1
 	github.com/twmb/murmur3 v1.1.8
 	go.uber.org/ratelimit v0.3.1
 )
@@ -48,19 +48,19 @@ require (
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/projectdiscovery/blackrock v0.0.1 // indirect
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
-	github.com/sorairolake/lzip-go v0.3.7 // indirect
-	github.com/spf13/afero v1.14.0 // indirect
+	github.com/sorairolake/lzip-go v0.3.8 // indirect
+	github.com/spf13/afero v1.15.0 // indirect
 	github.com/tidwall/gjson v1.18.0 // indirect
-	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/match v1.2.0 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
-	github.com/ulikunitz/xz v0.5.13 // indirect
+	github.com/ulikunitz/xz v0.5.15 // indirect
 	go4.org v0.0.0-20230225012048-214862532bf5 // indirect
 	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
-	golang.org/x/mod v0.27.0 // indirect
-	golang.org/x/net v0.43.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
-	golang.org/x/text v0.28.0 // indirect
+	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/net v0.44.0 // indirect
+	golang.org/x/sync v0.17.0 // indirect
+	golang.org/x/sys v0.36.0 // indirect
+	golang.org/x/text v0.29.0 // indirect
 	golang.org/x/tools v0.36.0 // indirect
 	gopkg.in/djherbis/times.v1 v1.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
