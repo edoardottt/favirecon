@@ -56,17 +56,17 @@ func New(options *input.Options) Runner {
 // Run takes the input and executes all the tasks
 // specified in the options.
 func (r *Runner) Run() {
-	r.InWg.Add(1)
+	r.OutWg.Add(1)
 
-	go pushInput(r)
+	go pullOutput(r)
 
 	r.InWg.Add(1)
 
 	go execute(r)
 
-	r.OutWg.Add(1)
+	r.InWg.Add(1)
 
-	go pullOutput(r)
+	go pushInput(r)
 
 	r.InWg.Wait()
 
