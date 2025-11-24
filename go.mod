@@ -3,7 +3,7 @@ module github.com/edoardottt/favirecon
 go 1.24.0
 
 require (
-	github.com/PuerkitoBio/goquery v1.10.3
+	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/edoardottt/golazy v0.1.4
 	github.com/projectdiscovery/goflags v0.1.74
 	github.com/projectdiscovery/gologger v1.1.59
@@ -56,12 +56,12 @@ require (
 	github.com/ulikunitz/xz v0.5.15 // indirect
 	go4.org v0.0.0-20230225012048-214862532bf5 // indirect
 	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
-	golang.org/x/mod v0.28.0 // indirect
-	golang.org/x/net v0.44.0 // indirect
-	golang.org/x/sync v0.17.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
-	golang.org/x/text v0.29.0 // indirect
-	golang.org/x/tools v0.37.0 // indirect
+	golang.org/x/mod v0.29.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
+	golang.org/x/tools v0.38.0 // indirect
 	gopkg.in/djherbis/times.v1 v1.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
