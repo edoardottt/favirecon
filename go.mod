@@ -3,7 +3,7 @@ module github.com/edoardottt/favirecon
 go 1.26.0
 
 require (
-	github.com/PuerkitoBio/goquery v1.12.0
+	github.com/PuerkitoBio/goquery v1.13.0
 	github.com/edoardottt/golazy v0.1.4
 	github.com/projectdiscovery/goflags v0.1.76
 	github.com/projectdiscovery/gologger v1.1.72
