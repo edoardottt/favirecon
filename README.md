@@ -13,10 +13,6 @@
       <img src="https://github.com/edoardottt/favirecon/actions/workflows/go.yml/badge.svg" alt="go action">
   </a>
 
-  <a href="https://goreportcard.com/report/github.com/edoardottt/favirecon">
-      <img src="https://goreportcard.com/badge/github.com/edoardottt/favirecon" alt="go report card">
-  </a>
-
 <br>
   <!--Tweet button-->
   <a href="https://twitter.com/intent/tweet?text=favirecon%20-%20Use%20favicon.ico%20to%20improve%20your%20target%20recon%20phase.%20Quickly%20detect%20technologies,%20WAF,%20exposed%20panels,%20known%20services.%20https%3A%2F%2Fgithub.com%2Fedoardottt%2Ffavirecon%20%23golang%20%23github%20%23linux%20%23infosec%20%23bugbounty" target="_blank">Share on Twitter!
