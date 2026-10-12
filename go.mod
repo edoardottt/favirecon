@@ -10,7 +10,7 @@ require (
 	github.com/projectdiscovery/mapcidr v1.1.97
 	github.com/projectdiscovery/utils v0.11.6
 	github.com/stretchr/testify v1.12.1
-	github.com/twmb/murmur3 v1.2.0
+	github.com/twmb/murmur3 v1.2.1
 	go.uber.org/ratelimit v0.3.1
 )
 
