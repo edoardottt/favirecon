@@ -3,9 +3,9 @@ summary: Use favicons to improve your target recon phase
 description: |
       Use favicons to improve your target recon phase. 
       Quickly detect technologies, WAF, exposed panels, known services.
-version: 1.0.4
+version: 1.1.0
 grade: stable
-base: core20
+base: core24
 
 confinement: strict
 
@@ -19,5 +19,7 @@ apps:
 parts:
   favirecon:
     plugin: go
+    build-snaps:
+      - go/latest/stable
     source-type: git
     source: https://github.com/edoardottt/favirecon
