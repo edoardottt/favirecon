@@ -10,9 +10,16 @@ import (
 	"encoding/base64"
 	"errors"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+)
+
+const (
+	// MaxFaviconLinks is the maximum number of favicons downloaded from the
+	// <link> tags of a page (data URIs do not count, they need no request).
+	MaxFaviconLinks = 3
 )
 
 var (
@@ -20,75 +27,111 @@ var (
 	ErrFaviconLinkTagNotFound = errors.New("no favicon link tag found")
 	ErrHTMLNotFetched         = errors.New("failed to fetch HTML")
 	ErrInvalidDataURI         = errors.New("invalid data URI")
+	ErrNotAnImage             = errors.New("not an image")
 )
 
-func extractFaviconFromHTML(pageURL, ua string, client *http.Client) (string, string, error) {
-	req, err := http.NewRequest(http.MethodGet, pageURL, nil)
+// faviconLinks fetches pageURL and returns the favicons referenced by its
+// <link rel="icon" ...> tags (icon, shortcut icon, apple-touch-icon...), in
+// document order. Relative references are resolved against <base href> and
+// the final URL of the page, after redirects.
+func faviconLinks(pageURL string, f *fetcher) ([]string, error) {
+	resp, err := f.get(pageURL)
 	if err != nil {
-		return "", "", err
-	}
-
-	req.Header.Add("User-Agent", ua)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", "", err
+		return nil, err
 	}
 
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", "", ErrHTMLNotFetched
+		return nil, ErrHTMLNotFetched
 	}
 
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
-		return "", "", err
+		return nil, err
 	}
 
-	var faviconHref string
+	base := resp.Request.URL
 
-	doc.Find("link").EachWithBreak(func(i int, s *goquery.Selection) bool {
+	if href, ok := doc.Find("base[href]").First().Attr("href"); ok {
+		if u, err := base.Parse(strings.TrimSpace(href)); err == nil {
+			base = u
+		}
+	}
+
+	var links []string
+
+	doc.Find("link[href]").Each(func(_ int, s *goquery.Selection) {
 		rel, _ := s.Attr("rel")
-		href, ok := s.Attr("href")
+		href, _ := s.Attr("href")
+		href = strings.TrimSpace(href)
 
-		if ok && strings.Contains(strings.ToLower(rel), "icon") {
-			faviconHref = href
-			return false // break loop
+		if !strings.Contains(strings.ToLower(rel), "icon") || href == "" {
+			return
 		}
 
-		return true
+		if isDataURI(href) {
+			links = append(links, href)
+
+			return
+		}
+
+		if u, err := base.Parse(href); err == nil && (u.Scheme == "http" || u.Scheme == "https") {
+			links = append(links, u.String())
+		}
 	})
 
-	if faviconHref == "" {
-		return "", "", ErrFaviconLinkTagNotFound
+	if len(links) == 0 {
+		return nil, ErrFaviconLinkTagNotFound
 	}
 
-	// handle base64 data
-	if strings.HasPrefix(faviconHref, "data:image") {
-		base64Data := strings.SplitN(faviconHref, ",", 2)
-		if len(base64Data) != 2 {
-			return "", "", ErrInvalidDataURI
-		}
+	return links, nil
+}
 
-		decoded, err := base64.StdEncoding.DecodeString(base64Data[1])
-		if err != nil {
-			return "", "", err
-		}
+func isDataURI(href string) bool {
+	return strings.HasPrefix(strings.ToLower(href), "data:")
+}
 
-		return faviconHref, GetFaviconHash(decoded), nil
-	}
-
-	faviconURL := resolveURL(pageURL, faviconHref)
-
-	found, favicon, err := getFavicon(faviconURL, ua, client)
+// hashDataURI returns the hash of the favicon embedded in a data URI.
+func hashDataURI(uri string) (string, error) {
+	mediaType, content, err := decodeDataURI(uri)
 	if err != nil {
-		return faviconURL, "", err
+		return "", err
 	}
 
-	if !found {
-		return "", "", ErrFaviconNotFound
+	if len(content) == 0 {
+		return "", ErrEmptyBody
 	}
 
-	return faviconURL, favicon, nil
+	if !isImage(mediaType, content) {
+		return "", ErrNotAnImage
+	}
+
+	return GetFaviconHash(content), nil
+}
+
+// decodeDataURI returns the media type and the content of a data URI (RFC 2397),
+// either base64 (data:image/png;base64,...) or percent-encoded (data:image/svg+xml,...).
+func decodeDataURI(uri string) (string, []byte, error) {
+	header, data, ok := strings.Cut(uri[len("data:"):], ",")
+	if !ok {
+		return "", nil, ErrInvalidDataURI
+	}
+
+	data, err := url.PathUnescape(data)
+	if err != nil {
+		return "", nil, err
+	}
+
+	mediaType, isBase64 := strings.CutSuffix(strings.ToLower(header), ";base64")
+	if !isBase64 {
+		return mediaType, []byte(data), nil
+	}
+
+	content, err := base64.StdEncoding.DecodeString(strings.Join(strings.Fields(data), ""))
+	if err != nil {
+		return "", nil, err
+	}
+
+	return mediaType, content, nil
 }

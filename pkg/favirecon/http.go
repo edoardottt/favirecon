@@ -12,10 +12,12 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/edoardottt/favirecon/pkg/input"
 	"github.com/projectdiscovery/gologger"
+	"go.uber.org/ratelimit"
 )
 
 const (
@@ -25,6 +27,14 @@ const (
 	MaxIdleConnsPerHost = 10
 	IdleConnTimeout     = 90
 )
+
+// fetcher performs the HTTP requests of all the workers, which share
+// the same client (and connection pool) and the same rate limiter.
+type fetcher struct {
+	client    *http.Client
+	limiter   ratelimit.Limiter
+	userAgent string
+}
 
 func customClient(options *input.Options) (*http.Client, error) {
 	transport := http.Transport{
@@ -61,35 +71,73 @@ func customClient(options *input.Options) (*http.Client, error) {
 	return &client, nil
 }
 
-func getFavicon(url, ua string, client *http.Client) (bool, string, error) {
+// get performs a GET request, waiting for the rate limiter first:
+// every request counts towards the rate limit, not only the first one of a target.
+func (f *fetcher) get(url string) (*http.Response, error) {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		return false, "", err
+		return nil, err
 	}
 
+	req.Header.Add("User-Agent", f.userAgent)
+
+	f.limiter.Take()
+
+	return f.client.Do(req)
+}
+
+// getFavicon downloads the favicon at url and returns the URL it was finally
+// served from (after redirects) and its hash. The response is accepted only if
+// its status is 200 and its body is a non-empty image.
+func getFavicon(url string, f *fetcher) (string, string, error) {
 	gologger.Debug().Msgf("Checking favicon for %s", url)
 
-	req.Header.Add("User-Agent", ua)
-
-	resp, err := client.Do(req)
+	resp, err := f.get(url)
 	if err != nil {
-		return false, "", err
+		return url, "", err
 	}
 
 	defer func() { _ = resp.Body.Close() }()
 
+	finalURL := resp.Request.URL.String()
+
 	if resp.StatusCode != http.StatusOK {
-		return false, "", ErrFaviconNotFound
+		return finalURL, "", ErrFaviconNotFound
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return false, "", err
+		return finalURL, "", err
 	}
 
 	if len(body) == 0 {
-		return false, "", ErrEmptyBody
+		return finalURL, "", ErrEmptyBody
 	}
 
-	return true, GetFaviconHash(body), nil
+	if !isImage(resp.Header.Get("Content-Type"), body) {
+		return finalURL, "", ErrNotAnImage
+	}
+
+	return finalURL, GetFaviconHash(body), nil
+}
+
+// isImage reports whether body, served with the given Content-Type, is an image.
+// Binary formats are recognized by their signature whatever the Content-Type is,
+// while HTML pages (soft-404s, SPA index pages, login redirects...) are rejected
+// even when they claim to be images.
+func isImage(contentType string, body []byte) bool {
+	sniffed := http.DetectContentType(body)
+	contentType = strings.ToLower(contentType)
+
+	switch {
+	case strings.HasPrefix(sniffed, "image/"):
+		return true
+	case strings.HasPrefix(contentType, "image/svg"):
+		// SVG has no binary signature: it sniffs as XML, text or even HTML (leading comment).
+		return true
+	case strings.HasPrefix(sniffed, "text/html"):
+		return false
+	default:
+		return strings.HasPrefix(contentType, "image/")
+	}
 }

@@ -19,10 +19,10 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: 1.25
+        go-version-file: go.mod
 
     - name: Build
       run: go build -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: go test -v -race ./...

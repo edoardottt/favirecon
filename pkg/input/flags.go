@@ -55,7 +55,7 @@ func ParseOptions() *Options {
 	options := &Options{}
 
 	flagSet := goflags.NewFlagSet()
-	flagSet.SetDescription(`Discover new target domains using Content Security Policy.`)
+	flagSet.SetDescription(`Use favicon.ico to improve your target recon phase. Quickly detect technologies, WAF, exposed panels, known services.`)
 
 	// Input
 	flagSet.CreateGroup("input", "Input",

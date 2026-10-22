@@ -20,25 +20,19 @@ var (
 	ErrMalformedURL = errors.New("malformed input URL")
 )
 
-func resolveURL(baseURL, ref string) string {
-	base, err := url.Parse(baseURL)
-	if err != nil {
-		return ref // fallback
-	}
-
-	u, err := url.Parse(ref)
-	if err != nil {
-		return ref
-	}
-
-	return base.ResolveReference(u).String()
-}
-
 // PrepareURL takes as input a string and prepares
 // the input URL in order to get the favicon icon.
 func PrepareURL(input string) (string, error) {
+	_, faviconURL, err := prepareURLs(input)
+	return faviconURL, err
+}
+
+// prepareURLs normalizes the input (adding the scheme if missing) and returns
+// the URL of the page, where <link> tags are looked for, and the URL of the
+// default favicon.
+func prepareURLs(input string) (string, string, error) {
 	if len(input) < MinURLLength {
-		return "", ErrMalformedURL
+		return "", "", ErrMalformedURL
 	}
 
 	if !strings.Contains(input, "://") {
@@ -47,10 +41,16 @@ func PrepareURL(input string) (string, error) {
 
 	u, err := url.Parse(input)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	if !strings.HasSuffix(u.Path, ".ico") {
+	page := url.URL{Scheme: u.Scheme, Host: u.Host, Path: u.Path, RawQuery: u.RawQuery}
+
+	if strings.HasSuffix(u.Path, ".ico") {
+		// The input is already a favicon: its page is the directory containing it.
+		page.Path = u.Path[:strings.LastIndex(u.Path, "/")+1]
+		page.RawQuery = ""
+	} else {
 		if !strings.HasSuffix(u.Path, "/") {
 			u.Path += "/"
 		}
@@ -58,5 +58,5 @@ func PrepareURL(input string) (string, error) {
 		u.Path += "favicon.ico"
 	}
 
-	return u.Scheme + "://" + u.Host + u.Path, nil
+	return page.String(), u.Scheme + "://" + u.Host + u.Path, nil
 }
