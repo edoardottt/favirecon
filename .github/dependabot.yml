@@ -6,9 +6,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
     target-branch: "devel"
     commit-message:
-      prefix: "deps"
+      prefix: "chore"
       include: "scope"
     labels:
       - "Maintenance"
@@ -18,9 +20,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    target-branch: "devel"
     cooldown:
       default-days: 7
+    target-branch: "devel"
     commit-message:
       prefix: "chore"
       include: "scope"
